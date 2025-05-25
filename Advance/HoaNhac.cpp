@@ -19,31 +19,24 @@ const bool multitest = 0;
 
 int n;
 int h[N];
-map <int, int> cnt;
 
 void solve(void) {
     cin >> n;
     rep(i, 1, n) cin >> h[i];
 
     int res = 0;
-    stack <int> st;
+    stack <pii> st;
 
     rep(i, 1, n) {
-        while (sz(st) && st.top() < h[i]) {
-            cnt[st.top()]--;
-            ++res;
+        int cnt = 1;
+        while (sz(st) && st.top().fi <= h[i]) {
+            res += st.top().se;
+            if (h[i] == st.top().fi) cnt += st.top().se;
             st.pop();
         }
         
-        if (sz(st)) {
-            if (h[i] == st.top()) {
-                res += cnt[h[i]];
-                if (sz(st) > cnt[h[i]]) ++res;
-            }
-            else ++res;
-        }
-        st.push(h[i]);
-        cnt[h[i]]++;
+        if (sz(st)) ++res;
+        st.push(pii(h[i], cnt));
     }
     cout << res;
 }
