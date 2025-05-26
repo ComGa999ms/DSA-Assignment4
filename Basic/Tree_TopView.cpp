@@ -17,53 +17,8 @@ const int N = 1e6 + 5;
 const int inf = 1e18 + 7;
 const bool multitest = 0;
 
-
-struct Tree {
-    int value;
-    
-    Tree *R, *L;
-    Tree(int x) {
-        value = x;
-        L = R = NULL;
-    }
-};
-
-int n;
-int res[N];
-
-Tree *add(Tree *root, int x) {
-    if (!root) return new Tree(x);
-    
-    if (x <= root->value) root->L = add(root->L, x);
-    else root->R = add(root->R, x);
-
-    return root;
-}
-
-void sol(Tree *root) {
-    if (!root) return ;
-
-    res[++n] = root->value;
-    
-    if (root->R) sol(root->R);
-
-    if (root->L && !root->R) sol(root->L);
-}
-
 void solve(void) {
-    Tree* root = NULL;
-
-    int _; cin >> _;
-    rep(i, 1, _) {
-        int x; cin >> x;
-        root = add(root, x);
-    }
-
-    sol(root);
-    sort(res + 1, res + 1 + n);
     
-
-    rep(i, 1, n + 1) cout << res[i] << ' ';
 }
 
 signed main() {
