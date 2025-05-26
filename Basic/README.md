@@ -165,3 +165,14 @@ void postOrder(Node *root) {
 }    
 ```
 ## Binary Search Tree: Nút chung gần nhất	
+```C++
+Node *lca(Node *root, int v1, int v2) {
+    if (root == NULL) return NULL;
+
+    // Nếu node hiện tại cùng bé hơn 2 node còn lại thì nhảy trái, tương tự thì nhảy phải.
+    if (v1 < root->data && v2 < root->data) return lca(root->left, v1, v2);
+    if (v1 > root->data && v2 > root->data) return lca(root->right, v1, v2);
+
+    return root;
+}
+```
