@@ -176,3 +176,27 @@ Node *lca(Node *root, int v1, int v2) {
     return root;
 }
 ```
+## Tree: Top view
+Baì này sau khi build cây theo đề bài thì cách để làm là chúng ta sẽ để gốc cây là tọa độ 0, xong rồi với mỗi trái thì sẽ có tọa độ +1, còn đối với bên phải thì -1.
+
+Lúc này chỉ cần in các node đầu tiên có tọa độ thì xong bài toán.
+
+```C++
+// m là map lưu các loại xoài có thể nhìn thấy 
+void Magic(Node* root) {
+    if (root == NULL) return;
+    
+    queue<pair<Node*, int>> q;
+    q.push(make_pair(root, 0));
+
+    while (q.size()) {
+        auto [cur, pos] = q.front(); q.pop();
+        
+        if (m.find(pos) == m.end()) {
+            m[pos] = cur->data;
+        }
+        if (cur->right) q.push(make_pair(cur->right, pos - 1));
+        if (cur->left) q.push(make_pair(cur->left, pos + 1));
+    }
+}
+```
